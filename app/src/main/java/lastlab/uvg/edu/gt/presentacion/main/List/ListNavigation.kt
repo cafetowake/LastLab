@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data object ListDestination
 
 fun NavGraphBuilder.list(
-    navigateToProfile: (Int) -> Unit
+    navigateToProfile: (String) -> Unit
 ){
     composable<ListDestination> {
         ListRoute(

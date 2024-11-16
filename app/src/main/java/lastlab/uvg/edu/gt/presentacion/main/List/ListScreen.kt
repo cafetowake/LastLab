@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +29,7 @@ import lastlab.uvg.edu.gt.presentacion.common.LoadingView
 
 @Composable
 fun ListRoute(
-    onProfileClick: (Int) -> Unit,
+    onProfileClick: (String) -> Unit,
     viewModel: ListViewModel = viewModel(factory = ListViewModel.Factory),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -44,7 +45,7 @@ fun ListRoute(
 private fun ListScreen(
     state: ListState,
     onRetryClick: () -> Unit,
-    onProfileClick: (Int) -> Unit,
+    onProfileClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
@@ -60,7 +61,6 @@ private fun ListScreen(
                     text = stringResource(R.string.retry),
                     onRetryClick = onRetryClick,
                     modifier = Modifier.align(Alignment.Center)
-
                 )
             }
 
@@ -74,22 +74,23 @@ private fun ListScreen(
 
             else -> {
                 LazyColumn {
-//                    items(state.data) { coin ->
-//                        ListItem(
-//                            coin = coin,
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .clickable { onProfileClick(coin.id) }
-
+                    items(state.data) { coin ->
+                        ListsItem(
+                            coin = coin,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { onProfileClick(coin.id) }
+                        )
                     }
                 }
             }
         }
     }
+}
 
 
 @Composable
-private fun ListItem(
+private fun ListsItem(
     coin: Coin,
     modifier: Modifier = Modifier,
 ) {
